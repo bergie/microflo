@@ -52,7 +52,10 @@ MbedIO io;
 LinuxIO io;
 #endif
 
-
+#ifdef EMSCRIPTEN
+#include "emscripten.hpp"
+EmscriptenIO io;
+#endif
 
 const int serialPort = 0;
 const int serialBaudrate = 9600;
@@ -91,6 +94,22 @@ void loop()
 #endif
 
 #ifndef ARDUINO
+#ifdef EMSCRIPTEN
+#include <new>
+void * operator new(size_t n) throw(std::bad_alloc)
+{
+  void * const p = malloc(n);
+  if (!p) {
+    throw std::bad_alloc();
+  }
+  return p;
+}
+
+void operator delete(void * p) throw()
+{
+  free(p);
+}
+#else
 void * operator new(size_t n)
 {
   void * const p = malloc(n);
@@ -102,6 +121,7 @@ void operator delete(void * p)
 {
   free(p);
 }
+#endif
 #endif
 
 // TODO: move into a HAVE_CXX_HANDLERS define
