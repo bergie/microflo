@@ -9,6 +9,10 @@ serialport = require 'serialport'
 
 componentLib = new microflo.componentlib.ComponentLibrary(require("../microflo/components.json"), "../microflo")
 
+# TODO: make into a factory, which takes a graph description, and
+# generates a component with ports for the exported ports on the graph
+# TODO: do not re-upload graph each time, simply
+# TODO: use runtime.RuntimeCommunication instead of serial/transport directly
 class MicroFloComponent extends noflo.Component
     constructor: ->
         @devname = null

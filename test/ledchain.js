@@ -7,7 +7,7 @@ var chai = require("chai")
 var fs = require("fs");
 var microflo = require("../lib/microflo");
 
-describe('a LedChain program', function(){
+describe('the LedChain program', function(){
     var runtime = new microflo.simulator.RuntimeSimulator();
     runtime.start();
 
@@ -18,14 +18,19 @@ describe('a LedChain program', function(){
             finish();
         });
     });
+    if('should expose exported ports', function() {
+        // runtime.inPorts, runtime.outPorts (or similar)
+    });
     describe('sending pin and number of pixels', function(){
-
+        // runtime.send('pin', 7);
+        // runtime.send('pixels', 29);
         it('should cause component to emit ready', function(){
 
         });
     });
     describe('setting the color of a pixel', function(finish){
 
+        // runtime.send('in', [3, "0x0F0F0F"]);
         it('should emit a matching confirmation packet', function(){
 
         });
